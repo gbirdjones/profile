@@ -15039,9 +15039,6 @@ var UserModel = require('./models/UserModel');
 var $ = require('jquery');
 window.jQuery = $;
 var bootstrap = require('bootstrap');
-var $nameUI = $('.profile-usertitle-name');
-var $roleUI = $('.profile-usertitle-job');
-var $nameDropUI = $('.dropdown-toggle');
 
 var user = new UserModel();
 var App = Backbone.Router.extend({
@@ -15063,6 +15060,20 @@ var App = Backbone.Router.extend({
 	}
 });
 
+// $.get (
+// 	'http://tiyfe.herokuapp.com/collections/gbjprofile',
+// 	function(show){
+// 		$('#name').val(show.name);
+// 		$('#inputEmail3').val(show.email);
+// 		$('#role').val(show.role);
+// 		$('.navbar-right .dropdown .dropdown-toggle ').text(show.name);
+// 		$('.profile-usertitle-name').text(show.name);
+// 		$('.profile-usertitle-job').text(show.role);
+// 	},
+// 	'json'
+
+// );
+
 $('#submitProfile').on('submit', function (e) {
 	console.log(user);
 	e.preventDefault();
@@ -15071,9 +15082,21 @@ $('#submitProfile').on('submit', function (e) {
 	user.set('role', $('#role').val());
 	user.set('password', $('#inputPassword3').val());
 	console.log(user);
-	$nameUI.html = $('#name').val();
-	$roleUI.html = $('#role').val();
-	$nameDropUI.html = $('#name').val();
+
+	// $.ajax ({
+	// 	url: 'http://tiyfe.herokuapp.com/collections/gbjprofile',
+	// 	type: 'PUT',
+	// 	succes: function ()
+	// 	{
+
+	// 	},
+	// 	'json'
+	// });
+});
+user.on('change', function () {
+	$('.navbar-right .dropdown .dropdown-toggle ').text(user.get('name'));
+	$('#profileName').text(user.get('name'));
+	$('.profile-usertitle-job').text(user.get('role'));
 });
 
 var app = new App();
